@@ -32,12 +32,12 @@ localStorage[_trackIdKeyDefaultCn] = "bxio-23";
 
 // returns the url with key-value pair added to the parameter string.
 function insertParam(url, key, value) {
-    if (url.indexOf('?') != -1) {
+    if (url.indexOf('?') != -1) {//url contains '?'
         var pairset = url.split('&');
-
+        console.log("HELLO WORLD");
         var i = pairset.length;
         var pair;
-
+        //always escape your values!
         key = escape(key);
         value = escape(value);
 
@@ -68,7 +68,7 @@ chrome.browserAction.onClicked.addListener(
         // Open the Amazon deals page
         chrome.tabs.create(
             {
-                'url': 'http://www.amazon.com/deals',
+                'url': 'http://www.amazon.ca/deals',
                 'selected': true
             },
             function(tab) {
