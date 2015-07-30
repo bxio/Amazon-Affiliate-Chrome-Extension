@@ -64,3 +64,33 @@ function copyToClipboard(str) {
 	document.execCommand('copy');
 }
 
+// returns the url with key-value pair added to the parameter string.
+function insertParam(url, key, value) {
+  if (url.indexOf('?') != -1) {//url contains '?'
+    var pairset = url.split('&');
+    console.log("HELLO WORLD");
+    var i = pairset.length;
+    var pair;
+    //always escape your values!
+    key = escape(key);
+    value = escape(value);
+
+    while (i--) {
+      pair = pairset[i].split('=');
+      if (pair[0] == key) {
+        pair[1] = value;
+        pairset[i] = pair.join('=');
+        break;
+      }
+    }
+
+    if (i < 0) {
+      pairset[pairset.length] = [key, value].join('=');
+    }
+    return pairset.join('&');
+  }
+  else {
+    return url + '?' + [key, value].join('=');
+  }
+}
+
