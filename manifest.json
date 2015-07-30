@@ -1,17 +1,9 @@
 {
    "background": {
-      "scripts": [ "background.js" ]
+      "page": "background.html"
    },
-   "browser_action": {
-      "default_icon": "images/icon128.png",
-      "default_title": "BXIO Chrome Affiliate"
-   },
-   "content_scripts": [ {
-      "js": [ "content.js" ],
-      "matches": [ "http://www.amazon.com/*", "https://www.amazon.com/*", "http://www.amazon.ca/*", "https://www.amazon.ca/*", "http://www.amazon.co.uk/*", "https://www.amazon.co.uk/*", "http://www.amazon.de/*", "https://www.amazon.de/*", "http://www.amazon.es/*", "https://www.amazon.es/*", "http://www.amazon.fr/*", "https://www.amazon.fr/*", "http://www.amazon.it/*", "https://www.amazon.it/*", "http://www.amazon.co.jp/*", "https://www.amazon.co.jp/*", "http://www.amazon.cn/*", "https://www.amazon.cn/*" ]
-   } ],
-   "description": "Applies bxio's Amazon tracking ID to Amazon pages so all purchases are credited to your favourite poor soon-to-be-ex university student.",
-   "homepage_url": "http://billxiong.com",
+   "content_security_policy": "default-src 'none'; script-src 'self'",
+   "description": "Shortens and shrinks Amazon links without all the SEO.",
    "icons": {
       "128": "images/icon128.png",
       "48": "images/icon48.png",
@@ -19,11 +11,15 @@
       "19": "images/icon19.png",
       "16": "images/icon16.png"
    },
-   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8PFmZPTYmA4J/YutLVNPdROAYXG/GdXzuk2Ov9p2XT2kPfJNqnkV03cbF5CKPNKkJZVEQVX1HtJ5SLyp6wmgAhLX7h3x02XLTLSYNp2Zp//PGF6PeJCluL1UAHFOn9T4QVz19UKlnXcU09L3ovXT1RAS9+7UHzqWo5kCr3brIBOVaPH9egNZccd9+q8zt1oHNzNlPLjjcWx23/Qul6XExKQn5/DHHqmOhsWyE/FxfdopF8y/A8c2yIKihGaEfXQv4uI+dsHsSXAJZ+pZJV4mJEq5Vgq2Gdasp1nhOMzv0moJt3cI0rlLUM+quq74TbY++BsSKishnIy1oF3mbA2c0wIDAQAB",
    "manifest_version": 2,
-   "name": "BXIO Chrome Affiliate",
+   "name": "BX Link Shortener for Amazon",
    "options_page": "options.html",
-   "permissions": [ "webRequest", "webRequestBlocking", "http://www.amazon.com/*", "https://www.amazon.com/*", "http://www.amazon.ca/*", "https://www.amazon.ca/*", "http://www.amazon.co.uk/*", "https://www.amazon.co.uk/*", "http://www.amazon.de/*", "https://www.amazon.de/*", "http://www.amazon.es/*", "https://www.amazon.es/*", "http://www.amazon.fr/*", "https://www.amazon.fr/*", "http://www.amazon.it/*", "https://www.amazon.it/*", "http://www.amazon.co.jp/*", "https://www.amazon.co.jp/*", "http://www.amazon.cn/*", "https://www.amazon.cn/*" ],
+   "page_action": {
+      "default_icon": "images/icon48.png",
+      "default_title": "Link Shortener"
+   },
+   "permissions": [ "tabs", "clipboardWrite", "storage", "webRequest", "webRequestBlocking", "http://www.amazon.com/*", "https://www.amazon.com/*", "http://www.amazon.ca/*", "https://www.amazon.ca/*", "http://www.amazon.co.uk/*", "https://www.amazon.co.uk/*", "http://www.amazon.de/*", "https://www.amazon.de/*", "http://www.amazon.es/*", "https://www.amazon.es/*", "http://www.amazon.fr/*", "https://www.amazon.fr/*", "http://www.amazon.it/*", "https://www.amazon.it/*", "http://www.amazon.co.jp/*", "https://www.amazon.co.jp/*", "http://www.amazon.cn/*", "https://www.amazon.cn/*"],
+
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.0.1"
 }
