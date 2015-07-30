@@ -27,14 +27,11 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 	chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link_clicked.png'});
 });
 
-function getShortenedURL(url){
-  var code = localStorage['affiliate_code'] || 'bxio-20';
-  return getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '');
-}
+
+// http://stackoverflow.com/questions/1764605/scrape-asin-from-amazon-url-using-javascript
+// http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number
 
 function getASIN(url) {
-	// http://stackoverflow.com/questions/1764605/scrape-asin-from-amazon-url-using-javascript
-	// http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number
 	var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*)?$');
 	m = url.match(regex);
 	if (m) {
@@ -58,33 +55,8 @@ function copyToClipboard(str) {
 	document.execCommand('copy');
 }
 
-// returns the url with key-value pair added to the parameter string.
-function insertParam(url, key, value) {
-  if (url.indexOf('?') != -1) {//url contains '?'
-    var pairset = url.split('&');
-    console.log("HELLO WORLD");
-    var i = pairset.length;
-    var pair;
-    //always escape your values!
-    key = escape(key);
-    value = escape(value);
-
-    while (i--) {
-      pair = pairset[i].split('=');
-      if (pair[0] == key) {
-        pair[1] = value;
-        pairset[i] = pair.join('=');
-        break;
-      }
-    }
-
-    if (i < 0) {
-      pairset[pairset.length] = [key, value].join('=');
-    }
-    return pairset.join('&');
-  }
-  else {
-    return url + '?' + [key, value].join('=');
-  }
+function getShortenedURL(url){
+  var code = localStorage['affiliate_code'] || 'bxio-20';
+  return getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '');
 }
 
