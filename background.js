@@ -2,41 +2,35 @@
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if (changeInfo.status === 'complete') {
-		// show page action for all Amazon pages
-		//var pattern = /(.+:\/\/)?([^\/]+)(\/.*)*/i;
-		//var arr = pattern.exec(tab.url);
-
-		//if(arr[2] == 'www.amazon.com') {
-		//	chrome.pageAction.show(tabId);
-		//}
-
-		// show page action for Amazon pages with an ASIN
+		//Show the link icon for any page with ASIN number
 		if(getASIN(tab.url)) {
 			chrome.pageAction.show(tabId);
       chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
+      //Redirect to correct url if url doesn't contain link
+      //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
 		}
 	}
 });
 
 chrome.pageAction.onClicked.addListener(function(tab) {
-	// if the options include an affiliate code then remove any existing codes and set the one from the options
-
-	// use bitly api to shorten link
+	// use bitly api to shorten link?
 
 	// put shortlink on clipboard
-	var code = localStorage['affiliate_code'] || '';
+	var code = localStorage['affiliate_code'] || 'bxio-20';
 
   //change this according to country
 	//copyToClipboard('http://amzn.com/' + getASIN(tab.url) + (code ? '/?tag=' + code : '/?tag=bxio-20'));
 
-  copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '/?tag=bxio-20'));
-
-	// show message on page using content script
+  copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
 
 	// change page action icon
 	chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link_clicked.png'});
 });
 
+function getShortenedURL(url){
+  var code = localStorage['affiliate_code'] || 'bxio-20';
+  return getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '');
+}
 
 function getASIN(url) {
 	// http://stackoverflow.com/questions/1764605/scrape-asin-from-amazon-url-using-javascript
