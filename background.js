@@ -13,15 +13,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 });
 
 chrome.pageAction.onClicked.addListener(function(tab) {
-	// use bitly api to shorten link?
+	//TODO: use bitly api to shorten link?
 
 	// put shortlink on clipboard
 	var code = localStorage['affiliate_code'] || 'bxio-20';
 
   //change this according to country
-	//copyToClipboard('http://amzn.com/' + getASIN(tab.url) + (code ? '/?tag=' + code : '/?tag=bxio-20'));
-
-  copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
+  //copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
+  copyToClipboard(getAffiliateCode(tab.url));
 
 	// change page action icon
 	chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link_clicked.png'});
@@ -30,6 +29,13 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 
 // http://stackoverflow.com/questions/1764605/scrape-asin-from-amazon-url-using-javascript
 // http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number
+function getAffiliateCode(url) {
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*\?tag=(.*-\\d\\d))?$');
+  m = url.match(regex);
+  if (m) {
+    return m[9];
+  }
+}
 
 function getASIN(url) {
 	var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*)?$');
