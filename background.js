@@ -19,8 +19,8 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 	var code = localStorage['affiliate_code'] || 'bxio-20';
 
   //change this according to country
-  //copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
-  copyToClipboard(getAffiliateCode(tab.url));
+  copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
+  // copyToClipboard(getAffiliateCode(tab.url));
 
 	// change page action icon
 	chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link_clicked.png'});
