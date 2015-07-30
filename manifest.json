@@ -3,7 +3,7 @@
       "page": "background.html"
    },
    "content_security_policy": "default-src 'none'; script-src 'self'",
-   "description": "Shortens and shrinks Amazon links without all the SEO.",
+   "description": "Shortens and shrinks Amazon links without all the analytics.",
    "icons": {
       "128": "images/icon128.png",
       "48": "images/icon48.png",
