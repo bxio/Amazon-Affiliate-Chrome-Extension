@@ -3,6 +3,8 @@
       "page": "background.html"
    },
    "content_security_policy": "default-src 'none'; script-src 'self'",
+   "name": "BX Link Shortener for Amazon",
+   "homepage_url": "https://billxiong.com/",
    "description": "Shortens and shrinks Amazon links without all the analytics.",
    "icons": {
       "128": "images/icon128.png",
@@ -12,7 +14,6 @@
       "16": "images/icon16.png"
    },
    "manifest_version": 2,
-   "name": "BX Link Shortener for Amazon",
    "options_page": "options.html",
    "page_action": {
       "default_icon": "images/icon48.png",
