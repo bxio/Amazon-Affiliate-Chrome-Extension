@@ -28,8 +28,12 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 
 // http://stackoverflow.com/questions/1764605/scrape-asin-from-amazon-url-using-javascript
 // http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number
-function getAmazonLinkDetails(url){
-
+function getAffiliate(url){
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*)?$');
+  m = url.match(regex);
+  if (m) {
+    return m[9];
+  }
 }
 
 
