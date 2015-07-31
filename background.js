@@ -8,6 +8,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
       //Redirect to correct url if url doesn't contain link
       //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
+      var code = localStorage['affiliate_code'] || 'bxio-20';
+      if(getAffiliate(tab.url)!=code){
+        //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
+      }
     }
   }
 });
