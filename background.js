@@ -22,11 +22,11 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 
   //TODO: change this according to country
   if(getSite(tab.url)=='AMAZON'){
-    copyToClipboard(getAMZN(tab.url,'COUNTRY') + '/dp/' + getAMZN(tab.url,'ASIN') + (code ? '/?tag=' + code : ''));
+    copyToClipboard(getAMZN(tab.url,'COUNTRY') + '/dp/' + getAMZN(tab.url,'PRODUCT') + (code ? '/?tag=' + code : ''));
   }else if(getSite(tab.url)=='NCIX'){
     copyToClipboard(getNCIX(tab.url,'COUNTRY')+ '/detail/'+getNCIX(tab.url,'PRODUCT'));
   }else if(getSite(tab.url)=='NEWEGG'){
-    copyToClipboard(getNewegg(tab.url));
+    copyToClipboard(getNewegg(tab.url,'PRODUCT'));
   }else if(getSite(tab.url)=='MEMORYEXPRESS'){
     copyToClipboard(getMemoryExpress(tab.url));
   }else{
@@ -68,7 +68,7 @@ function getAMZN(url, target){
   m = url.match(regex);
   if (m) {
     //return m[id];
-    if(target=='ASIN'){
+    if(target=='PRODUCT'){
       return m[7];
     }else if(target=='COUNTRY'){
       return m[2];
