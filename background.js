@@ -28,7 +28,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   // change page action icon
   chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link_clicked.png'});
   // change the icon back after a delay
-  setTimeout(function() { chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'}) }, 2500);
+  setTimeout(function() { chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'}) }, 750);
 
 });
 
