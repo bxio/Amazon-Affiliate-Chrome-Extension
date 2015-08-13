@@ -104,6 +104,21 @@ function getNewegg(url, target){
   }
 }
 
+
+//Bitly shortlink
+function generateBitlyShortlink(url){
+
+}
+
+//cloudapp shortlink
+function generateCloudappShortlink(url){
+
+}
+//trim integration
+function generateTrimShortlink(url){
+
+}
+
 //System functions follow
 
 function copyToClipboard(str) {
