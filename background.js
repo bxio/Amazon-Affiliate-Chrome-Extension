@@ -26,9 +26,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   }else if(getSite(tab.url)=='NCIX'){
     copyToClipboard(getNCIX(tab.url,'COUNTRY')+ '/detail/'+getNCIX(tab.url,'PRODUCT'));
   }else if(getSite(tab.url)=='NEWEGG'){
-    copyToClipboard(getNewegg(tab.url,'PRODUCT'));
-  }else if(getSite(tab.url)=='MEMORYEXPRESS'){
-    copyToClipboard(getMemoryExpress(tab.url));
+    copyToClipboard(getNewegg(tab.url,'COUNTRY')+'/Product/Product.aspx?Item='+getNewegg(tab.url,'PRODUCT'));
   }else{
     copyToClipboard(getSite(tab.url));
   }
@@ -94,11 +92,16 @@ function getNCIX(url, target){
 //Newegg: http://www.newegg.ca/Product/Product.aspx?Item=N82E16823816023&AID=10657534&PID=3938566&SID=&nm_mc=AFC-C8JunctionCA&cm_mmc=AFC-C8JunctionCA-_-na-_-na-_-na&utm_medium=affiliates&utm_source=afc-%zn
 // http://www.newegg.ca/Product/Product.aspx?Item=N82E16823816023
 function getNewegg(url, target){
-
-}
-
-function getMemoryExpress(url, target){
-
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)/Product/Product.aspx\\?Item=(\\w*)(.*)?$');
+  m = url.match(regex);
+  if (m) {
+    if(target=='COUNTRY'){
+      return m[2];
+    }else if(target =='PRODUCT'){
+      return m[3];
+    }
+    return m;
+  }
 }
 
 //System functions follow
