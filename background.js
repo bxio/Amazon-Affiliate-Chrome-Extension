@@ -3,16 +3,14 @@
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete') {
     //Show the link icon for any page with ASIN number
-      //if(getAMZN(tab.url,'ASIN')) {
-      chrome.pageAction.show(tabId);
-      chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
-      //Redirect to correct url if url doesn't contain link
-      //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
-      var code = localStorage['affiliate_code'] || 'bxio-20';
-      if(getAMZN(tab.url,'AFFILIATE')!=code){
-        //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
-      }
-    //}
+    chrome.pageAction.show(tabId);
+    chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
+    //Redirect to correct url if url doesn't contain link
+    //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
+    var code = localStorage['affiliate_code'] || 'bxio-20';
+    if(getAMZN(tab.url,'AFFILIATE')!=code){
+      //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
+    }
   }
 });
 
