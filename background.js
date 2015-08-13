@@ -24,7 +24,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   if(getSite(tab.url)=='AMAZON'){
     copyToClipboard(getAMZN(tab.url,'COUNTRY') + '/dp/' + getAMZN(tab.url,'ASIN') + (code ? '/?tag=' + code : ''));
   }else if(getSite(tab.url)=='NCIX'){
-    copyToClipboard(getNCIX(tab.url));
+    copyToClipboard(getNCIX(tab.url,'COUNTRY')+ '/detail/'+getNCIX(tab.url,'PRODUCT'));
   }else if(getSite(tab.url)=='NEWEGG'){
     copyToClipboard(getNewegg(tab.url));
   }else if(getSite(tab.url)=='MEMORYEXPRESS'){
@@ -78,13 +78,16 @@ function getAMZN(url, target){
   }
 }
 
-//NCIX: http://www.ncix.com/detail/<ProductName>?affiliateid=<AffilTag>
-
+//NCIX: http://www.ncix.com/detail/<ProductName>.htm?affiliateid=<AffilTag>
 function getNCIX(url, target){
-  var regex = RegExp('^(http[s]?://)?([\\w.-]+)/(.*)?$');
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)/detail/(.*.htm)(.*)?$');
   m = url.match(regex);
   if (m) {
-    return m;
+    if(target=='COUNTRY'){
+      return m[2];
+    }else if(target=='PRODUCT'){
+      return m[3];
+    }
   }
 }
 
