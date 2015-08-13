@@ -3,13 +3,13 @@
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete') {
     //Show the link icon for any page with ASIN number
-    if(getASIN(tab.url)) {
+    if(getAMZN(tab.url,'ASIN')) {
       chrome.pageAction.show(tabId);
       chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
       //Redirect to correct url if url doesn't contain link
       //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
       var code = localStorage['affiliate_code'] || 'bxio-20';
-      if(getAffiliate(tab.url)!=code){
+      if(getAMZN(tab.url,'AFFILIATE')!=code){
         //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
       }
     }
@@ -23,7 +23,8 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   var code = localStorage['affiliate_code'] || 'bxio-20';
 
   //TODO: change this according to country
-  copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
+  // copyToClipboard(getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : ''));
+  copyToClipboard(getAMZN(tab.url,'COUNTRY') + '/dp/' + getAMZN(tab.url,'ASIN') + (code ? '/?tag=' + code : ''));
 
   // change page action icon
   chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link_clicked.png'});
@@ -32,31 +33,23 @@ chrome.pageAction.onClicked.addListener(function(tab) {
 
 });
 
-
 // http://stackoverflow.com/questions/1764605/scrape-asin-from-amazon-url-using-javascript
 // http://en.wikipedia.org/wiki/Amazon_Standard_Identification_Number
-function getAffiliate(url){
+// Country = 2
+// ASIN = 7
+// Affiliate = 9
+function getAMZN(url, target){
   var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*)?$');
   m = url.match(regex);
   if (m) {
-    return m[9];
-  }
-}
-
-
-function getASIN(url) {
-  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*)?$');
-  m = url.match(regex);
-  if (m) {
-    return m[7];
-  }
-}
-
-function getCountry(url) {
-  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(exec/obidos/tg/detail/-|gp/product|o/ASIN|dp|dp/product|exec/obidos/asin)/(\\w+/)?(\\w{10})(.*)?$');
-  m = url.match(regex);
-  if (m) {
-    return m[2];
+    //return m[id];
+    if(target=='ASIN'){
+      return m[7];
+    }else if(target=='COUNTRY'){
+      return m[2];
+    }else if(target=='AFFILIATE'){
+      return m[9];
+    }
   }
 }
 
