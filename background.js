@@ -53,6 +53,31 @@ function getAMZN(url, target){
   }
 }
 
+//Newegg: http://www.newegg.ca/Product/Product.aspx?Item=N82E16823816023&AID=10657534&PID=3938566&SID=&nm_mc=AFC-C8JunctionCA&cm_mmc=AFC-C8JunctionCA-_-na-_-na-_-na&utm_medium=affiliates&utm_source=afc-%zn
+// http://www.newegg.ca/Product/Product.aspx?Item=N82E16823816023
+function getNewegg(url, target){
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(.*)?$');
+  m = url.match(regex);
+  if (m) {
+    //return m[id];
+    if(target=='ASIN'){
+      return m[7];
+    }else if(target=='COUNTRY'){
+      return m[2];
+    }else if(target=='AFFILIATE'){
+      return m[9];
+    }
+  }
+}
+//NCIX: http://www.ncix.com/detail/<ProductName>?affiliateid=<AffilTag>
+function getNCIX(url, target){
+
+}
+
+function checkSite(url, target){
+
+}
+//System functions follow
 function copyToClipboard(str) {
   var temp = document.getElementById('temp');
   temp.value = str;
@@ -60,9 +85,3 @@ function copyToClipboard(str) {
   temp.focus();
   document.execCommand('copy');
 }
-
-function getShortenedURL(url){
-  var code = localStorage['affiliate_code'] || 'bxio-20';
-  return getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '');
-}
-
