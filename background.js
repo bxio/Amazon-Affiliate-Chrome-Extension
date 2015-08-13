@@ -2,14 +2,16 @@
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (changeInfo.status === 'complete') {
-    //Show the link icon for any page with ASIN number
-    chrome.pageAction.show(tabId);
-    chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
-    //Redirect to correct url if url doesn't contain link
-    //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
-    var code = localStorage['amzn_code'] || 'bxio-20';
-    if(getAMZN(tab.url,'AFFILIATE')!=code){
-      //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
+    //Show the link icon for any page we currently support
+    if(getSite(tab.url)){
+      chrome.pageAction.show(tabId);
+      chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
+      //Redirect to correct url if url doesn't contain link
+      //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
+      var code = localStorage['amzn_code'] || 'bxio-20';
+      if(getAMZN(tab.url,'AFFILIATE')!=code){
+        //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
+      }
     }
   }
 });
@@ -48,10 +50,6 @@ function getSite(url){
       return 'NCIX';
     }else if(m[2] == "www.newegg.com" || m[2] == "www.newegg.ca"){
       return 'NEWEGG';
-    }else if(m[2] == "www.memoryexpress.com"){
-      return 'MEMORYEXPRESS';
-    }else{
-      return m[2];
     }
   }
 }
