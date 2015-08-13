@@ -7,7 +7,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
     //Redirect to correct url if url doesn't contain link
     //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
-    var code = localStorage['affiliate_code'] || 'bxio-20';
+    var code = localStorage['amzn_code'] || 'bxio-20';
     if(getAMZN(tab.url,'AFFILIATE')!=code){
       //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
     }
@@ -18,7 +18,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   // use bitly api to shorten link?
 
   // put shortlink on clipboard
-  var code = localStorage['affiliate_code'] || 'bxio-20';
+  var code = localStorage['amzn_code'] || 'bxio-20';
 
   //TODO: change this according to country
   if(getSite(tab.url)=='AMAZON'){
