@@ -57,13 +57,14 @@ function getSite(url){
     }
   }
 }
-//http://www.audible.com/pd/Classics/Pride-and-Prejudice-Audiobook/B016LN23CC/ref=a_hp_c3_1_4_i_pbs?ie=UTF8&pf_rd_r=04PH4PA228196PZFFHF6&pf_rd_m=A2ZO8JX97D5MN9&pf_rd_t=101&pf_rd_i=5000&pf_rd_p=2471303542&pf_rd_s=center-3
+//Audible
+//
 function getAudible(url){
-  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?([\\w-]+/)?([\\w-]+/)?(.*)$');
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?([\\w-]+/)?([\\w-]+/)?(\\w{10})(.*)?$');
   //(\\w{10})(.*)?$
   m = url.match(regex);
   if (m) {
-    return m[6];
+    return m[1]+m[2]+'/'+m[4]+m[5]+m[6]+m[7]+'/';
   }else{
     return "not found";
   }
