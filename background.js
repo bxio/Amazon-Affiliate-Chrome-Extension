@@ -8,7 +8,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       chrome.pageAction.setIcon({tabId : tab.id, path : '/images/link.png'});
       //Redirect to correct url if url doesn't contain link
       //chrome.tabs.update(tab.id, {url: "http://billxiong.com"});
-      var code = localStorage['amzn_code'] || 'bxio-20';
+      var code = localStorage['amzn_code'] || 'alexaio-20';
       if(getAMZN(tab.url,'AFFILIATE')!=code){
         //chrome.tabs.update(tab.id, {url: 'http://' + getCountry(tab.url) + '/dp/' + getASIN(tab.url) + (code ? '/?tag=' + code : '')});
       }
@@ -20,11 +20,13 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   // use bitly api to shorten link?
 
   // put shortlink on clipboard
-  var code = localStorage['amzn_code'] || 'bxio-20';
+  var code = localStorage['amzn_code'] || 'alexaio-20';
 
   //TODO: change this according to country
   if(getSite(tab.url)=='AMAZON'){
     copyToClipboard(getAMZN(tab.url,'COUNTRY') + '/dp/' + getAMZN(tab.url,'PRODUCT') + (code ? '/?tag=' + code : ''));
+  }else if(getSite(tab.url)=='AUDIBLE'){
+    copyToClipboard(getAudible(tab.url));
   }else if(getSite(tab.url)=='NCIX'){
     copyToClipboard(getNCIX(tab.url,'COUNTRY')+ '/detail/'+getNCIX(tab.url,'PRODUCT'));
   }else if(getSite(tab.url)=='NEWEGG'){
@@ -46,11 +48,23 @@ function getSite(url){
   if (m && m[2]) {
     if(m[2] == "www.amazon.com" || m[2] == "www.amazon.ca" || m[2] == "www.amazon.co.uk" || m[2] == "www.amazon.de" || m[2] == "www.amazon.es" || m[2] == "www.amazon.fr" || m[2] == "www.amazon.it"|| m[2] == "www.amazon.co.jp" || m[2] == "www.amazon.cn"){
       return 'AMAZON';
+    }else if(m[2] == "www.audible.com" || m[2] == "www.audible.ca"){
+      return 'AUDIBLE';
     }else if(m[2] == "www.ncixus.com" || m[2] == "www.ncix.com"){
       return 'NCIX';
     }else if(m[2] == "www.newegg.com" || m[2] == "www.newegg.ca"){
       return 'NEWEGG';
     }
+  }
+}
+//http://www.audible.com/pd/Classics/Pride-and-Prejudice-Audiobook/B016LN23CC/ref=a_hp_c3_1_4_i_pbs?ie=UTF8&pf_rd_r=04PH4PA228196PZFFHF6&pf_rd_m=A2ZO8JX97D5MN9&pf_rd_t=101&pf_rd_i=5000&pf_rd_p=2471303542&pf_rd_s=center-3
+function getAudible(url){
+  var regex = RegExp('^(http[s]?://)?([\\w.-]+)(:[0-9]+)?/([\\w-%]+/)?(\\w+/)?');
+  m = url.match(regex);
+  if (m) {
+    return m[0]+"["+m[5]+"]";
+  }else{
+    return "not found";
   }
 }
 

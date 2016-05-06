@@ -31,8 +31,11 @@
    "http://www.amazon.co.jp/*", "https://www.amazon.co.jp/*",
    "http://www.amazon.cn/*", "https://www.amazon.cn/*",
 
+   "http://www.audible.com/*", "https://www.audible.ca/*",
+
    "http://www.newegg.com/*","https://www.newegg.com/*",
    "http://www.newegg.ca/*","http://www.newegg.ca/*",
+
    "http://www.ncix.com/*","https://www.ncix.com/*"
    ],
 
